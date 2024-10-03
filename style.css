@@ -1,0 +1,89 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body, html {
+    height: 100%;
+    overflow: hidden;
+}
+.container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 280px); /* 自动填充列 */
+    grid-template-rows: repeat(auto-fill, 166px); /* 自动填充行 */
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none; /* 禁用 pointer 事件 */
+}
+.grid img {
+    width: 280px;
+    height: 166px;
+    object-fit: cover;
+    pointer-events: auto; /* 启用指针事件 */
+    transition: transform 0.6s; /* 动画效果 */
+}
+.flip-container {
+    position: relative;
+    width: 280px;
+    height: 166px;
+    perspective: 1000px; /* 透视效果 */
+    display: inline-block;
+}
+.flip-card {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s; /* 动画效果 */
+    transform-style: preserve-3d; /* 保持3D效果 */
+}
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden; /* 隐藏背面 */
+}
+
+@font-face {
+    font-family: 'MyCustomFont'; /* 字体名称 */
+    src: url('fonts/MyCustomFont.ttf') format('truetype'); /* 引入自定义字体 */
+}
+
+.flip-card-back {
+    font-family: "adelle-sans", sans-serif;
+    font-weight: 400;
+    font-style: normal; /* 使用自定义字体 */
+    color: #006D9C; /* 设置字体颜色，比如深灰色 */
+    transform: rotateY(180deg); /* 旋转180度 */
+    display: flex;
+    align-items: flex-start; /* 从顶部对齐 */
+    justify-content: flex-start; /* 从左对齐 */
+    background-color: rgba(255, 255, 255, 0.8); /* 背景颜色 */
+    font-size: 1.2em;
+    padding: 10px; /* 内边距 */
+    text-align: left; /* 确保左对齐 */
+    white-space: normal; /* 自动换行 */
+}
+.image-text {
+    position: absolute;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6); /* 背景半透明 */
+    color: white;
+    width: 100%; /* 占满图片宽度 */
+    text-align: left; /* 左对齐文本 */
+    padding: 10px; /* 内边距 */
+    white-space: normal; /* 允许自动换行 */
+    font-size: 0.9em; /* 调整字体大小 */
+    display: none; /* 默认隐藏 */
+
+}
+.flip-container:hover .image-text {
+    display: block; /* 鼠标悬停时显示文本 */
+}

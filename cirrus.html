@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Collection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header styles */
+        .header {
+            display: flex;
+            justify-content: space-between; /* 水平排列左侧和右侧内容 */
+            padding: 20px;
+            background-color: #fff;
+            align-items: center;
+        }
+
+        /* Aligning title and navigation */
+        .cloud-collection {
+            margin-left: 20px; /* 左对齐 */
+            font-size: 35px;
+            color: #026599;
+        }
+
+        .header a {
+            text-decoration: none;
+            color: #026599;
+            font-size: 29px;
+            margin-left: 20px; /* 添加间距 */
+        }
+
+        /* Main title image */
+
+        .main-title {
+            width: 968px;
+            height: 287px;
+            background-image: url('cirrus.png'); /* 替换为实际图片路径 */
+            background-size: cover;
+            background-position: center;
+            margin-left: 50px; /* 中央对齐 */
+            animation: fadeInOut 8s infinite;
+        }
+
+        /* Content section */
+        .content {
+            max-width: 1200px;
+            margin: 20px auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .content img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            animation: fadeInOut 8s infinite;
+        }
+
+        .text-block {
+            grid-column: 1 / span 2; /* 让文字部分跨越前两栏 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: #026599;
+            font-size: 20px;
+            line-height: 1.6;
+            opacity: 0; /* 初始透明度为0 */
+            animation: fadeInOut 8s infinite; /* 应用淡入淡出动画 */
+        }
+
+        /* Footer styles */
+        .footer {
+            text-align: right; /* 右对齐 */
+            padding: 20px;
+            background-color: #f0f8ff;
+            font-size: 25px;
+            margin-top: 20px;
+            color: #026599;
+        }
+
+        /* Fade-in and fade-out animation */
+        @keyframes fadeInOut {
+            0%, 100% {
+                opacity: 0;
+            }
+            20%, 80% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Cloud Collection and Navigation -->
+    <div class="header">
+        <div class="cloud-collection">Cloud Collection</div>
+        <div class="nav">
+            <a href="#">previous cloud</a>
+            <a href="#">next cloud</a>
+            <a href="#">home</a>
+        </div>
+    </div>
+
+    <!-- Main title image -->
+    <div class="main-title"></div> <!-- 这里放置标题图片 -->
+
+    <!-- Content section with image and description -->
+    <div class="content">
+        <!-- Text Content Section -->
+        <div class="text-block">
+            <p>
+                Cirrus clouds are like nature’s brushstrokes, painting the sky with thin, wispy streaks that look like feathers or fluffy cotton candy. They’re usually soft white or light gray, catching the sunlight and making them shimmer like magic in the sky. 
+                These clouds are so light and airy that they seem to float above everything else like they’re dancing in the wind.
+            </p>
+            <p>
+                These special clouds are made when water vapor turns straight into tiny ice crystals, skipping the whole liquid water stage.  This happens way up high where it’s super cold and the air is thin.  That’s why Cirrus clouds are so delicate—they’re made of sparkling ice instead of heavy water droplets.
+            </p>
+            <p>
+                When you spot Cirrus clouds, it’s like a little hint from the sky that the weather might be changing soon. They often show up before a warm front or a storm is on its way, almost like they’re giving us a heads-up. The high winds up there spread the ice crystals out into those long, wispy shapes, making the sky look like it’s been decorated with fluffy ribbons. 
+            </p>
+        </div>
+
+        <!-- Image Section -->
+        <div class="image-container">
+            <img src="cirrus1.JPG" alt="Cirrus Cloud" />
+        </div>
+
+        <div class="image-container">
+            <img src="cirrus2.JPG" alt="Cirrus Cloud" />
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        Collecting cloud sculptures created by sky artists.
+    </div>
+</body>
+</html>
