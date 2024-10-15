@@ -1,0 +1,235 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Collection</title>
+    <link rel="stylesheet" href="https://use.typekit.net/laf6orl.css">
+</head>
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 280px);
+    grid-template-rows: repeat(auto-fill, 166px);
+    pointer-events: none;
+}
+
+.grid img {
+    width: 280px;
+    height: 166px;
+    object-fit: cover;
+    pointer-events: auto;
+    transition: transform 0.6s;
+}
+
+.flip-container {
+    position: relative;
+    width: 280px;
+    height: 166px;
+    perspective: 1000px;
+    pointer-events: auto;
+}
+
+.flip-card {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+}
+
+.flip-card-front {
+    background-color: transparent;
+}
+
+.flip-card-back {
+    background-color: #026599;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    text-align: center;
+    transform: rotateY(180deg);
+}
+
+.rectangle {
+    width: 280px;
+    height: 166px;
+    background-color: blue;
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        grid-template-rows: repeat(auto-fill, minmax(150px, 1fr));
+    }
+
+    .grid img, .rectangle {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+</style>
+<body>
+    <div class="container">
+        <div class="grid" id="imageGrid"></div>
+    </div>
+
+    <script>
+        const imageGrid = document.getElementById('imageGrid');
+        
+        // 自定义颜色数组
+        const colors = ['#01B1EB', '#B9DDF7', '#026599', '#64BFEE', '#5490A8', '#024E85', '#E7F3FB', '#B8D4E9', '#E7F3FB', '#9FE2FF'];
+
+        // 图片数组
+        const images = [
+            { src: "cirro.jpg", text: "Title: Cirrostratus\nArtist: Sky\nPlace: New Jersey\nTime of Creation: 4:15 PM, August 23rd", link: "cirro.html" },
+            { src: "IMG_4577.JPG", text: "Title: Cirrus\nArtist: Sky\nPlace: New Jersey\nTime of Creation: 6:00 PM, August 21st", link: "cirrus.html" },
+            { src: "IMG_4580.JPG", text: "Title: Cirrus\nArtist: Sky\nPlace: New Jersey\nTime of Creation: 3:00 PM, August 28th", link: "cirrus.html" },
+            { src: "IMG_4585.JPG", text: "Title: Cirrostratus\nArtist: Sky\nPlace: New Jersey\nTime of Creation: 6:04 PM, January 16th", link: "cirro.html" },
+            { src: "IMG_4594.JPG", text: "Title: Altocumulus\nArtist: Sky\nPlace: New Jersey\nTime of Creation: 17:48 PM, May 19th", link: "altocu.html" },
+            { src: "IMG_4601.JPG", text: "Title: Altocumulus\nArtist: Sky\nPlace: New Jersey\nTime of Creation: 2:00 PM, August 23rd", link: "altocu.html" },
+            { src: "IMG_4650.JPG", text: "Title: Cirrocumulus\nArtist: Sky\nPlace: New Jersey\nTime of Creation: 4:00 PM, January 4th", link: "cirro.html" },
+            { src: "IMG_4687.JPG", text: "Title: Altostratus\nArtist: Sky\nPlace: New Jersey\nTime of Creation: 12:50 PM, August 28th", link: "altostra.html" },
+            { src: "IMG_4691.JPG", text: "Title: Stratus\nArtist: Sky\nPlace: New Jersey\nTime of Creation: 16:50 PM, January 14th", link: "stratu.html" },
+            { src: "IMG_4694.JPG", text: "Title: Cumulus\nArtist: Sky\nPlace: New Jersey\nTime of Creation: 15:48 PM, May 20th", link: "cumu.html" },
+            { src: "IMG_4709.JPG", text: "Title: Stratocumulus\nArtist: Sky\nPlace: New Jersey\nTime of Creation: 14:49 PM, January 11th", link: "strato.html" },
+            { src: "IMG_4710.JPG", text: "Title: Stratocumulus\nArtist: Sky\nPlace: New Jersey\nTime of Creation: 18:37 PM, September 3rd", link: "strato.html" },
+            { src: "IMG_4711.PNG", text: "Title: Cirrocumulus\nArtist: Sky\nPlace: New Jersey\nTime of Creation: 2:15 PM, August 13rd", link: "cirro.html" },
+            { src: "cover.PNG", text: "Title: Stratocumulus\nArtist: Sky\nPlace: New Jersey\nTime of Creation: 15:30 PM, August 28th", link: "strato.html" },
+            { src: "new1.PNG", text: "Title: Cirrostratus\nArtist: Sky\nPlace: New Jersey\nTime of Creation: 11:03 PM, August 29th", link: "cirro.html" }
+        ];
+
+        // 生成随机颜色的长方形
+        function getRandomColor() {
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        // 生成图片网格
+        function generateGrid() {
+            const cols = Math.ceil(window.innerWidth / 280) + 2;
+            const rows = Math.ceil(window.innerHeight / 166) + 2;
+            imageGrid.innerHTML = ''; // 清空现有内容
+
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    const randomChoice = Math.random();
+                    if (randomChoice < 0.5) { // 50% 概率生成图片
+                        const flipContainer = document.createElement('div');
+                        flipContainer.className = 'flip-container';
+                        const flipCard = document.createElement('div');
+                        flipCard.className = 'flip-card';
+
+                        const front = document.createElement('div');
+                        front.className = 'flip-card-front';
+                        const img = document.createElement('img');
+                        const randomIndex = Math.floor(Math.random() * images.length);
+                        img.src = images[randomIndex].src;
+                        img.alt = "image";
+                        front.appendChild(img);
+                        flipCard.appendChild(front);
+
+                        const back = document.createElement('div');
+                        back.className = 'flip-card-back';
+                        back.innerText = images[randomIndex].text;
+                        flipCard.appendChild(back);
+
+                        flipContainer.appendChild(flipCard);
+                        imageGrid.appendChild(flipContainer);
+
+                        let timeout;
+                        flipContainer.onmouseenter = () => {
+                            timeout = setTimeout(() => {
+                                flipCard.style.transform = "rotateY(180deg)";
+                            }, 600); // 0.6秒后翻转
+                        };
+
+                        flipContainer.onmouseleave = () => {
+                            clearTimeout(timeout);
+                            flipCard.style.transform = "rotateY(0deg)";
+                        };
+
+                        flipContainer.onclick = () => {
+                            window.location.href = images[randomIndex].link;
+                        };
+                    } else { // 50% 概率生成蓝色长方形
+                        const rectangle = document.createElement('div');
+                        rectangle.className = 'rectangle';
+                        rectangle.style.backgroundColor = getRandomColor();
+                        imageGrid.appendChild(rectangle);
+                    }
+                }
+            }
+
+            // 设置grid的宽高
+            imageGrid.style.width = `${cols * 280}px`;
+            imageGrid.style.height = `${rows * 166}px`;
+        }
+
+        generateGrid();
+
+        let offsetX = 0;
+        let offsetY = 0;
+        let lastMouseX = window.innerWidth / 2;
+        let lastMouseY = window.innerHeight / 2;
+
+        function handleMouseMove(event) {
+            const deltaX = (event.clientX - lastMouseX) * 0.5;
+            const deltaY = (event.clientY - lastMouseY) * 0.5;
+
+            offsetX -= deltaX;
+            offsetY -= deltaY;
+
+            wrapAround();
+
+            imageGrid.style.transform = `translate(${-offsetX}px, ${-offsetY}px)`;
+
+            lastMouseX = event.clientX;
+            lastMouseY = event.clientY;
+        }
+
+        function wrapAround() {
+            const gridWidth = imageGrid.scrollWidth;
+            const gridHeight = imageGrid.scrollHeight;
+
+            if (offsetX >= gridWidth) offsetX = 0;
+            if (offsetX < 0) offsetX = gridWidth;
+
+            if (offsetY >= gridHeight) offsetY = 0;
+            if (offsetY < 0) offsetY = gridHeight;
+        }
+
+        document.body.addEventListener('mousemove', handleMouseMove);
+    </script>
+</body>
+</html>

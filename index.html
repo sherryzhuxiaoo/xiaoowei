@@ -1,232 +1,274 @@
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cloud Collection</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://use.typekit.net/laf6orl.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://use.typekit.net/laf6orl.css" />
+  </head>
+  <body>
     <div class="container">
-        <div class="grid" id="imageGrid">
-
-        </div>
+      <div class="grid" id="imageGrid"></div>
     </div>
 
-
     <script>
-        const imageGrid = document.getElementById('imageGrid');
-        const container = document.getElementById('container');
-        
-        // 自定义颜色数组
-        const colors = ['#01B1EB', '#B9DDF7', '#026599', '#64BFEE', '#5490A8', '#024E85', '#E7F3FB', '#B8D4E9', '#E7F3FB', '#9FE2FF,']; // 蓝色系列
+      const imageGrid = document.getElementById("imageGrid");
+      const container = document.getElementById("container");
 
-        // 图片数组
-        const images = [
-            {
-                src: "cirro.jpg",
-                text: "Title: Cirrostratus\nArtist: Sky\nPlace: New Jersey\nTime of Creation: 4:15 PM, August 23rd",
-                link: "cirro.html" // 点击后跳转的链接
-            },
-            {
-                src: "IMG_4577.JPG",
-                text: "Title: Cirrus\nArtist: Sky\nPlace: New Jersey\nTime of Creation: 6:00 PM, August 21st",
-                link: "cirrus.html"
-            },
-            {
-                src: "IMG_4580.JPG",
-                text: "Title: Cirrus\nArtist: Sky\nPlace: New Jersey\nTime of Creation: 3:00 PM, August 28th",
-                link: "cirrus.html"
-            },
-            {
-                src: "IMG_4585.JPG",
-                text: "Title: Cirrostratus\nArtist: Sky\nPlace: New Jersey\nTime of Creation: 6:04 PM, January 16th",
-                link: "cirro.html"
-            },
-            {
-                src: "IMG_4594.JPG",
-                text: "Title: Altocumulus\nArtist: Sky\nPlace: New Jersey \nTime of Creation: \n17:48 PM, \nMay 19th",
-                link: "altocu.html"
-            },
-            {
-                src: "IMG_4601.JPG",
-                text: "Title: Altocumulus\nArtist: Sky\nPlace: New Jersey\nTime of Creation: 2:00 PM, \nAugust 23rd",
-                link: "altocu.html"
-            },
-            {
-                src: "IMG_4650.JPG",
-                text: "Title: Cirrocumulus\nArtist: Sky\nPlace: New Jersey \nTime of Creation: 4:00 PM, January 4th",
-                link: "cirro.html"
-            },
-            {
-                src: "IMG_4687.JPG",
-                text: "Title: Altostratus\nArtist: Sky\nPlace: New Jersey \nTime of Creation: 12:50 PM, August 28th",
-                link: "altostra.html"
-            },
-            {
-                src: "IMG_4691.JPG",
-                text: "Title: Stratus\nArtist: Sky\nPlace: New Jersey \nTime of Creation: 16:50 PM, January 14th",
-                link: "stratu.html"
-            },
-            {
-                src: "IMG_4694.JPG",
-                text: "Title: Cumulus\nArtist: Sky\nPlace: New Jersey \nTime of Creation: 15:48 PM, May 20th",
-                link: "cumu.html"
-            },
-            {
-                src: "IMG_4709.JPG",
-                text: "Title: Stratocumulus\nArtist: Sky\nPlace: New Jersey \nTime of Creation: 14:49 PM, January 11th",
-                link: "strato.html"
-            },
-            {
-                src: "IMG_4710.JPG",
-                text: "Title: Stratocumulus\nArtist: Sky\nPlace: New Jersey \nTime of Creation: 18:37 PM, September 3rd",
-                link: "strato.html"
-            },
-            {
-                src: "IMG_4711.PNG",
-                text: "Title: Cirrocumulus\nArtist: Sky\nPlace: New Jersey\nTime of Creation: 2:15 PM, August 13rd",
-                link: "cirro.html"
-            },
-            {
-                src: "cover.PNG",
-                text: "Title: Stratocumulus\nArtist: Sky\nPlace: New Jersey \nTime of Creation: 15:30 PM, August 28th",
-                link: "strato.html"
-            },
-            {
-                src: "new1.PNG",
-                text: "Title: Cirrostratus\nArtist: Sky\nPlace: New Jersey \nTime of Creation: 11:03 PM, August 29th",
-                link: "cirro.html"
-            },
-            
-        ]; // 添加你的图片链接和描述
+      // 自定义颜色数组
+      const colors = [
+        "#01B1EB",
+        "#B9DDF7",
+        "#026599",
+        "#64BFEE",
+        "#5490A8",
+        "#024E85",
+        "#E7F3FB",
+        "#B8D4E9",
+        "#E7F3FB",
+        "#9FE2FF,",
+      ]; // 蓝色系列
 
-        // 生成随机颜色的长方形
-        function getRandomColor() {
-            return colors[Math.floor(Math.random() * colors.length)];
-        }
+      // 文字随机背景
+      const lettersBgColors = ["#FFFFFF", "#E7F3FB", "#00ACE9"];
 
-        // 生成图片网格，确保图片足够多以覆盖屏幕并可以滚动
-        function generateGrid() {
-            const cols = Math.ceil(window.innerWidth / 280) + 2; // 多加2列防止出现空白
-            const rows = Math.ceil(window.innerHeight / 166) + 2; // 多加2行防止出现空白
+      const lettersBackImg = {
+        "2,1": "E.png",
+        "2,2": "P.png",
+        "3,1": "H.png",
+        "3,2": "E.png",
+        "3,3": "M.png",
+        "3,4": "E.png",
+        "4,3": "M.png",
+        "4,4": "M.png",
+      };
 
-            // 清空现有内容
-            imageGrid.innerHTML = '';
+      // 图片数组
+      const images = [
+        {
+          src: "cirro.jpg",
+          text: "Title: Cirrostratus\nArtist: Sky\nPlace: New Jersey\nTime of Creation: 4:15 PM, August 23rd",
+          link: "cirro.html", // 点击后跳转的链接
+        },
+        {
+          src: "IMG_4577.JPG",
+          text: "Title: Cirrus\nArtist: Sky\nPlace: New Jersey\nTime of Creation: 6:00 PM, August 21st",
+          link: "cirrus.html",
+        },
+        {
+          src: "IMG_4580.JPG",
+          text: "Title: Cirrus\nArtist: Sky\nPlace: New Jersey\nTime of Creation: 3:00 PM, August 28th",
+          link: "cirrus.html",
+        },
+        {
+          src: "IMG_4585.JPG",
+          text: "Title: Cirrostratus\nArtist: Sky\nPlace: New Jersey\nTime of Creation: 6:04 PM, January 16th",
+          link: "cirro.html",
+        },
+        {
+          src: "IMG_4594.JPG",
+          text: "Title: Altocumulus\nArtist: Sky\nPlace: New Jersey \nTime of Creation: \n17:48 PM, \nMay 19th",
+          link: "altocu.html",
+        },
+        {
+          src: "IMG_4601.JPG",
+          text: "Title: Altocumulus\nArtist: Sky\nPlace: New Jersey\nTime of Creation: 2:00 PM, \nAugust 23rd",
+          link: "altocu.html",
+        },
+        {
+          src: "IMG_4650.JPG",
+          text: "Title: Cirrocumulus\nArtist: Sky\nPlace: New Jersey \nTime of Creation: 4:00 PM, January 4th",
+          link: "cirro.html",
+        },
+        {
+          src: "IMG_4687.JPG",
+          text: "Title: Altostratus\nArtist: Sky\nPlace: New Jersey \nTime of Creation: 12:50 PM, August 28th",
+          link: "altostra.html",
+        },
+        {
+          src: "IMG_4691.JPG",
+          text: "Title: Stratus\nArtist: Sky\nPlace: New Jersey \nTime of Creation: 16:50 PM, January 14th",
+          link: "stratu.html",
+        },
+        {
+          src: "IMG_4694.JPG",
+          text: "Title: Cumulus\nArtist: Sky\nPlace: New Jersey \nTime of Creation: 15:48 PM, May 20th",
+          link: "cumu.html",
+        },
+        {
+          src: "IMG_4709.JPG",
+          text: "Title: Stratocumulus\nArtist: Sky\nPlace: New Jersey \nTime of Creation: 14:49 PM, January 11th",
+          link: "strato.html",
+        },
+        {
+          src: "IMG_4710.JPG",
+          text: "Title: Stratocumulus\nArtist: Sky\nPlace: New Jersey \nTime of Creation: 18:37 PM, September 3rd",
+          link: "strato.html",
+        },
+        {
+          src: "IMG_4711.PNG",
+          text: "Title: Cirrocumulus\nArtist: Sky\nPlace: New Jersey\nTime of Creation: 2:15 PM, August 13rd",
+          link: "cirro.html",
+        },
+        {
+          src: "cover.PNG",
+          text: "Title: Stratocumulus\nArtist: Sky\nPlace: New Jersey \nTime of Creation: 15:30 PM, August 28th",
+          link: "strato.html",
+        },
+        {
+          src: "new1.PNG",
+          text: "Title: Cirrostratus\nArtist: Sky\nPlace: New Jersey \nTime of Creation: 11:03 PM, August 29th",
+          link: "cirro.html",
+        },
+      ]; // 添加你的图片链接和描述
 
-            // 添加图片和随机长方形到网格中
-            for (let r = 0; r < rows; r++) {
-                for (let c = 0; c < cols; c++) {
-                    const randomChoice = Math.random();
-                    if (randomChoice < 0.5) { // 50%的概率生成图片
-                        const flipContainer = document.createElement('div');
-                        flipContainer.className = 'flip-container';
-                        
-                        const flipCard = document.createElement('div');
-                        flipCard.className = 'flip-card';
+      // 生成随机颜色的长方形
+      function getRandomColor(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+      }
 
-                        // 正面图片
-                        const front = document.createElement('div');
-                        front.className = 'flip-card-front';
-                        const img = document.createElement('img');
-                        const randomIndex = Math.floor(Math.random() * images.length); // 随机选择图片
-                        img.src = images[randomIndex].src; // 使用随机选择的图片
-                        img.alt = "image";
-                        front.appendChild(img);
-                        flipCard.appendChild(front);
+      // 生成图片网格，确保图片足够多以覆盖屏幕并可以滚动
+      function generateGrid() {
+        const contentW = Math.ceil(window.innerWidth / 6);
+        const contentH = Math.ceil(window.innerHeight / 6);
 
-                        // 背面文字
-                        const back = document.createElement('div');
-                        back.className = 'flip-card-back';
-                        back.innerText = images[randomIndex].text; // 使用对应的文字
-                        flipCard.appendChild(back);
+        let rows = 6;
+        let cols = 6;
 
-                        flipContainer.appendChild(flipCard);
-                        imageGrid.appendChild(flipContainer);
+        /*
+            固定字母的位置，固定在中间 ，生成坐标范围
+        */
+        const letterX = [rows / 2 - 1, rows / 2 + 2 - 1];
+        const letterY = [cols / 2 - 1 - 1, cols / 2 - 1 - 1 + 3];
 
-                        // 事件处理
-                        let timeout;
-                        flipContainer.onmouseenter = () => {
-                            timeout = setTimeout(() => {
-                                flipCard.style.transform = "rotateY(180deg)"; // 翻转
-                            }, 600); // 2秒后翻转
-                        };
+        console.log(letterX, letterY);
 
-                        flipContainer.onmouseleave = () => {
-                            clearTimeout(timeout);
-                            flipCard.style.transform = "rotateY(0deg)"; // 还原
-                        };
+        // 清空现有内容
+        imageGrid.innerHTML = "";
 
-                        flipContainer.onclick = () => {
-                            window.location.href = images[randomIndex].link; // 点击后跳转
-                        };
-                    } else { // 50%的概率生成蓝色长方形
-                        const rectangle = document.createElement('div');
-                        rectangle.className = 'rectangle';
-                        rectangle.style.backgroundColor = getRandomColor(); // 随机颜色
-                        rectangle.style.left = `${c * 280}px`;
-                        rectangle.style.top = `${r * 166}px`;
-                        imageGrid.appendChild(rectangle);
-                    }
-                }
+        let lbgc = getRandomColor(lettersBgColors);
+
+        // 添加图片和随机长方形到网格中
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            let drawLetter = false;
+            // 如果当前rc在字母位置范围内
+            if (
+              r >= letterX[0] &&
+              r <= letterX[1] &&
+              c >= letterY[0] &&
+              c <= letterY[1]
+            ) {
+              drawLetter = true;
+              // 第一行字母只显示在前半，最后一行字母只显示在后半
+              if (r === letterX[0] && c > letterY[1] - 2) {
+                drawLetter = false;
+              }
+              if (r === letterX[1] && c <= letterY[1] - 2) {
+                drawLetter = false;
+              }
             }
+            const randomChoice = Math.random();
+            if (drawLetter || randomChoice < 0.5) {
+              const flipContainer = document.createElement("div");
+              flipContainer.className = "flip-container";
 
-            // 设置grid容器的宽度和高度，确保它包含所有内容
-            imageGrid.style.width = `${cols * 280}px`;
-            imageGrid.style.height = `${rows * 166}px`;
-        }
+              const flipCard = document.createElement("div");
+              flipCard.className = "flip-card";
 
-        // 初始化：生成内容
-        generateGrid();
+              // 正面
+              const front = document.createElement("div");
+              front.className = "flip-card-front";
 
-        // 偏移量
-        let offsetX = 0;
-        let offsetY = 0;
-        let lastMouseX = window.innerWidth / 2;
-        let lastMouseY = window.innerHeight / 2;
+              let randomIndex = null;
 
-        // 处理鼠标移动事件
-        function handleMouseMove(event) {
-            const deltaX = (event.clientX - lastMouseX) * 0.5; // 根据需要调整速度
-            const deltaY = (event.clientY - lastMouseY) * 0.5; // 根据需要调整速度
+              if (drawLetter) {
+                const letterDom = document.createElement("div");
+                letterDom.className = "letter";
+                letterDom.style.backgroundColor = getRandomColor(colors); // 颜色 lbgc
 
-            offsetX -= deltaX; // 更新偏移量
-            offsetY -= deltaY;
+                front.appendChild(letterDom);
+                flipCard.appendChild(front);
 
-            wrapAround(); // 调整偏移
+                // 背面字母图片
+                const back = document.createElement("div");
+                back.className = "flip-card-back";
+                const backImg = document.createElement("img");
+                backImg.src = lettersBackImg[`${r},${c}`];
+                backImg.alt = "image";
+                backImg.className = "flip-card-back-img";
+                back.appendChild(backImg);
+                flipCard.appendChild(back);
+              } else {
+                const img = document.createElement("img");
+                randomIndex = Math.floor(Math.random() * images.length); // 随机选择图片
+                img.src = images[randomIndex].src; // 使用随机选择的图片
+                img.alt = "image";
 
-            // 应用偏移，通过translate移动网格
-            imageGrid.style.transform = `translate(${-offsetX}px, ${-offsetY}px)`;
+                front.appendChild(img);
+                flipCard.appendChild(front);
 
-            lastMouseX = event.clientX; // 更新上一个鼠标位置
-            lastMouseY = event.clientY;
-        }
+                // 背面文字
+                const back = document.createElement("div");
+                back.className = "flip-card-back";
+                back.innerText = images[randomIndex].text; // 使用对应的文字
+                flipCard.appendChild(back);
+              }
 
-        // 无缝循环的逻辑
-        function wrapAround() {
-            const gridWidth = imageGrid.scrollWidth;
-            const gridHeight = imageGrid.scrollHeight;
+              flipContainer.appendChild(flipCard);
+              imageGrid.appendChild(flipContainer);
 
-            // 水平方向循环
-            if (offsetX >= gridWidth) {
-                offsetX = 0; // 到达右边界，回到左边
-            } else if (offsetX < 0) {
-                offsetX = gridWidth; // 到达左边界，回到右边
+              // 事件处理
+              let timeout;
+              flipContainer.onmouseenter = () => {
+                timeout = setTimeout(() => {
+                  flipCard.style.transform = "rotateY(180deg)"; // 翻转
+                }, 600); // 2秒后翻转
+              };
+
+              flipContainer.onmouseleave = () => {
+                clearTimeout(timeout);
+                flipCard.style.transform = "rotateY(0deg)"; // 还原
+              };
+
+              if (randomIndex) {
+                flipContainer.onclick = () => {
+                  window.location.href = images[randomIndex].link; // 点击后跳转
+                };
+              }
+            } else {
+              const rectangle = document.createElement("div");
+              rectangle.className = "rectangle";
+              rectangle.style.left = `${c * contentW}px`;
+              rectangle.style.top = `${r * contentH}px`;
+              rectangle.style.backgroundColor = getRandomColor(colors); // 随机颜色
+              imageGrid.appendChild(rectangle);
             }
-
-            // 垂直方向循环
-            if (offsetY >= gridHeight) {
-                offsetY = 0; // 到达下边界，回到上边
-            } else if (offsetY < 0) {
-                offsetY = gridHeight; // 到达上边界，回到下边
-            }
+          }
         }
 
-        // 监听鼠标移动事件
-        container.addEventListener('mousemove', handleMouseMove);
+        // 设置grid容器的宽度和高度，确保它包含所有内容
+        imageGrid.style.width = `${cols * contentW}px`;
+        imageGrid.style.height = `${rows * contentH}px`;
+      }
+
+      // 初始化：生成内容
+      generateGrid();
+
+      // 防抖
+      function debounce(func, delay) {
+        let timer;
+        return function () {
+          clearTimeout(timer);
+          timer = setTimeout(func, delay);
+        };
+      }
+
+      const debounceGenerateGrid = debounce(generateGrid, 200);
+
+      // 视口改变时重新生成内容
+      // window.onresize = generateGrid;
+      window.onresize = debounceGenerateGrid;
     </script>
-
-</body>
+  </body>
 </html>
-
-
